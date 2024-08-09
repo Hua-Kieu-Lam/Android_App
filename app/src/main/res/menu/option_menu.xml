@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:id="@+id/mnProduct"
+            android:title="Quản lý sản phẩm"/>
+        <item
+            android:id="@+id/mnCategory"
+            android:title="Quản lý danh mục"/>
+        <item
+            android:id="@+id/mnMeal"
+            android:title="Quản lý bữa ăn"/>
+        <item
+            android:id="@+id/mnAccount"
+            android:title="Tài khoản người dùng"/>
+</menu>
