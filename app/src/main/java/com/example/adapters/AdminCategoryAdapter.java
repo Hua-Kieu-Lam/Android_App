@@ -1,6 +1,7 @@
 package com.example.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.android_app.CategoryActivity;
+import com.example.android_app.CategoryUpdateActivity;
 import com.example.android_app.databinding.AdminCategoryItemBinding;
 import com.example.android_app.databinding.AdminProductItemBinding;
 import com.example.models.Category;
@@ -49,6 +52,15 @@ public class AdminCategoryAdapter extends RecyclerView.Adapter<AdminCategoryAdap
                 .apply(requestOptions)
                 .into(holder.binding.imvCategory);
 
+        holder.binding.imvUpdate.setOnClickListener(new View.OnClickListener() {
+            final int position = holder.getAdapterPosition();
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, CategoryUpdateActivity.class);
+                intent.putExtra("CATEGORY_ID",categoryArrayList.get(position).getCategoryId());
+                context.startActivity(intent);
+            }
+        });
         holder.binding.imvDelete.setOnClickListener(new View.OnClickListener() {
             int position = holder.getAdapterPosition();
 
