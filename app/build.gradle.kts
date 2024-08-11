@@ -48,4 +48,10 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.image.labeling.common)
+
+    implementation("com.android.volley:volley:1.2.0")
+    implementation ("com.squareup.picasso:picasso:2.71828")
+
+    implementation ("com.google.android.gms:play-services-vision:20.1.3")
 }

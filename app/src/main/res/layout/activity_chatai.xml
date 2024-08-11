@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatAIActivity"
+    android:padding="8dp">
+
+    <!-- Scrollable chat container -->
+    <ScrollView
+        android:id="@+id/idSVChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/idChatInputContainer"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="@string/chat_history_content_description">
+
+        <LinearLayout
+            android:id="@+id/idLLChatContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+    <!-- Chat input and actions container -->
+    <RelativeLayout
+        android:id="@+id/idChatInputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <!-- Attachment button -->
+        <ImageButton
+            android:id="@+id/idBtnAttachFile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_attach"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/attach_file"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp" />
+
+        <!-- Query input field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/idTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/idBtnAttachFile"
+            android:layout_toStartOf="@id/idBtnSend"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/idEdtQuery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your query here"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                android:textColor="@android:color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Send button -->
+        <ImageButton
+            android:id="@+id/idBtnSend"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_send"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/send_message"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:padding="12dp" />
+
+        <!-- Stop button -->
+        <ImageButton
+            android:id="@+id/idBtnStop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_stop"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/stop_response"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/idBtnSend"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            android:padding="12dp" />
+
+    </RelativeLayout>
+
+    <!-- Rich text view -->
+    <TextView
+        android:id="@+id/richTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="This is rich text with links."
+        android:padding="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/idSVChat" />
+
+    <!-- Generated image view -->
+    <ImageView
+        android:id="@+id/generatedImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <!--    &lt;!&ndash; Drawing View &ndash;&gt;-->
+    <!--    <com.example.full_ai_chat.DrawingView-->
+    <!--        android:id="@+id/drawingView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_above="@id/clearButton"-->
+    <!--        android:layout_alignParentTop="true" />-->
+
+    <!--    &lt;!&ndash; Clear button &ndash;&gt;-->
+    <!--    <Button-->
+    <!--        android:id="@+id/clearButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:text="Clear" />-->
+
+    <!--    &lt;!&ndash; Save button &ndash;&gt;-->
+    <!--    <Button-->
+    <!--        android:id="@+id/saveButton"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_toEndOf="@id/clearButton"-->
+    <!--        android:text="Save" />-->
+
+    <!--    &lt;!&ndash; Send Drawing button &ndash;&gt;-->
+    <!--    <Button-->
+    <!--        android:id="@+id/sendButtonDrawing"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_toEndOf="@id/saveButton"-->
+    <!--        android:text="Send Drawing" />-->
+
+</RelativeLayout>
