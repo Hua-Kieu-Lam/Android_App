@@ -70,21 +70,6 @@ public class AdminCategoryAdapter extends RecyclerView.Adapter<AdminCategoryAdap
         });
     }
 
-//            String categoryId = categoryArrayList.get(currentPosition).getCategoryId();
-//            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Category").child(categoryId);
-//
-//            ref.removeValue().addOnCompleteListener(task -> {
-//                if (task.isSuccessful()) {
-//                    categoryArrayList.remove(currentPosition);
-//                    notifyItemRemoved(currentPosition);
-//                    notifyItemRangeChanged(currentPosition, categoryArrayList.size());
-//                    Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-
-
 
     @Override
     public int getItemCount() {

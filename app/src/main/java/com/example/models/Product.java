@@ -11,6 +11,18 @@ public class Product implements Serializable {
     private double productProtein;
     private double productMoisture;
     private String firebaseId;
+    private String categoryId;
+
+    public Product(String productName, String productImg, double productCalo, double productCarb, double productFat, double productProtein, double productMoisture, String categoryId) {
+        this.productName = productName;
+        this.productImg = productImg;
+        this.productCalo = productCalo;
+        this.productCarb = productCarb;
+        this.productFat = productFat;
+        this.productProtein = productProtein;
+        this.productMoisture = productMoisture;
+        this.categoryId = categoryId;
+    }
 
     public String getFirebaseId() {
         return firebaseId;
@@ -24,15 +36,6 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String productName, String productImg, double productCalo, double productCarb, double productFat, double productProtein, double productMoisture) {
-        this.productName = productName;
-        this.productImg = productImg;
-        this.productCalo = productCalo;
-        this.productCarb = productCarb;
-        this.productFat = productFat;
-        this.productProtein = productProtein;
-        this.productMoisture = productMoisture;
-    }
 
     public String getProductName() {
         return productName;
@@ -88,5 +91,13 @@ public class Product implements Serializable {
 
     public void setProductMoisture(double productMoisture) {
         this.productMoisture = productMoisture;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 }
