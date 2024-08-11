@@ -49,12 +49,27 @@ public class AdminCategoryAdapter extends RecyclerView.Adapter<AdminCategoryAdap
                 .apply(requestOptions)
                 .into(holder.binding.imvCategory);
 
-//        holder.binding.imvDelete.setOnClickListener(view -> {
-//            int currentPosition = holder.getAdapterPosition();
-//            if (currentPosition == RecyclerView.NO_POSITION) {
-//                return;
-//            }
-//
+        holder.binding.imvDelete.setOnClickListener(new View.OnClickListener() {
+            int position = holder.getAdapterPosition();
+
+            @Override
+            public void onClick(View view) {
+                String categoryId = categoryArrayList.get(position).getCategoryId();
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Category").child(categoryId);
+                ref.removeValue().addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        categoryArrayList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, categoryArrayList.size());
+                        Toast.makeText(context, "Xóa thành công!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
 //            String categoryId = categoryArrayList.get(currentPosition).getCategoryId();
 //            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Category").child(categoryId);
 //
@@ -68,8 +83,8 @@ public class AdminCategoryAdapter extends RecyclerView.Adapter<AdminCategoryAdap
 //                    Toast.makeText(context, "Xóa thất bại", Toast.LENGTH_SHORT).show();
 //                }
 //            });
-//        });
-    }
+
+
 
     @Override
     public int getItemCount() {

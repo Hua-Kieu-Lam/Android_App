@@ -71,7 +71,6 @@ public class AdminActivity extends AppCompatActivity {
                             product.setFirebaseId(i.getKey()); // Lưu trữ ID Firebase vào product
                             productArrayList.add(product); // Thêm sản phẩm vào danh sách
                         }
-//                        productArrayList.add(i.getValue(Product.class));
                     }
                     if(!productArrayList.isEmpty()){
                         binding.rvProducts.setLayoutManager(new LinearLayoutManager(AdminActivity.this));

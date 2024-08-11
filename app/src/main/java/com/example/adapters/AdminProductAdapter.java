@@ -46,20 +46,13 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
                 .into(holder.binding.imvProduct);
 
         holder.binding.imvDelete.setOnClickListener(new View.OnClickListener() {
+            int position = holder.getAdapterPosition();
 
             @Override
             public void onClick(View view) {
                 String firebaseId = productArrayList.get(position).getFirebaseId();
 
-                // Kiểm tra nếu firebaseId bị null
-                if (firebaseId == null) {
-                    Log.e("AdminProductAdapter", "firebaseId is null for product: " + productArrayList.get(position).getProductName());
-                    Toast.makeText(context, "Không thể xóa sản phẩm vì ID không hợp lệ", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product").child(firebaseId);
-                Log.d("AdminProductAdapter", "Deleting product with Firebase ID: " + firebaseId);
 
                 ref.removeValue().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
