@@ -1,5 +1,6 @@
 package com.example.android_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -45,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         loadData();
+        addEvents();
+    }
+
+    private void addEvents() {
+        binding.btnChatAI.setOnClickListener(v -> {
+            startActivity(new Intent(MainActivity.this, ChatAIActivity.class));
+        });
     }
 
     private void loadData() {
