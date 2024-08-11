@@ -11,11 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.adapters.AdminProductAdapter;
-import com.example.adapters.ProductAdapter;
 import com.example.android_app.databinding.ActivityAdminBinding;
 import com.example.models.Product;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +28,8 @@ public class AdminActivity extends AppCompatActivity {
 
     ActivityAdminBinding binding;
     FirebaseDatabase db;
+    private AdminProductAdapter adminProductAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,6 @@ public class AdminActivity extends AppCompatActivity {
         });
         addEvents();
     }
-
 
     private void addEvents() {
         binding.btnAddProduct.setOnClickListener(view -> {
@@ -67,11 +66,18 @@ public class AdminActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for(DataSnapshot i:snapshot.getChildren()){
-                        productArrayList.add(i.getValue(Product.class));
+                        Product product = i.getValue(Product.class);
+                        if (product != null) {
+                            product.setFirebaseId(i.getKey()); // Lưu trữ ID Firebase vào product
+                            productArrayList.add(product); // Thêm sản phẩm vào danh sách
+                        }
+//                        productArrayList.add(i.getValue(Product.class));
                     }
                     if(!productArrayList.isEmpty()){
                         binding.rvProducts.setLayoutManager(new LinearLayoutManager(AdminActivity.this));
-                        binding.rvProducts.setAdapter(new AdminProductAdapter(productArrayList));
+                        adminProductAdapter = new AdminProductAdapter(productArrayList); // Khởi tạo adapter
+                        binding.rvProducts.setAdapter(adminProductAdapter);
+                        adminProductAdapter.notifyDataSetChanged();
                     }
                 }
             }

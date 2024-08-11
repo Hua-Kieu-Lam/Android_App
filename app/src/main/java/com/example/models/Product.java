@@ -11,6 +11,16 @@ public class Product implements Serializable {
     private double productFat;
     private double productProtein;
     private double productMoisture;
+    private String firebaseId;
+
+    public String getFirebaseId() {
+        return firebaseId;
+    }
+
+    public void setFirebaseId(String firebaseId) {
+        this.firebaseId = firebaseId;
+    }
+
 
     public Product() {
     }

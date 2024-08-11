@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.adapters.AdminProductAdapter;
 import com.example.adapters.CategoryAdapter;
 import com.example.adapters.ProductAdapter;
 import com.example.android_app.databinding.ActivityMainBinding;
@@ -88,8 +89,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    for(DataSnapshot i:snapshot.getChildren()){
-                        productArrayList.add(i.getValue(Product.class));
+                    for (DataSnapshot i : snapshot.getChildren()) {
+                        Product product = snapshot.getValue(Product.class);
+                        if (product != null) {
+                            product.setFirebaseId(snapshot.getKey()); // Lưu trữ ID Firebase vào product
+                            productArrayList.add(product); // Thêm sản phẩm vào danh sách
+                        }
                     }
                     if(!productArrayList.isEmpty()){
                         binding.rvProducts.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
