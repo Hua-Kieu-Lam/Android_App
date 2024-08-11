@@ -1,24 +1,23 @@
 package com.example.models;
 
 public class Category {
-    private int categoryId;
+    private String categoryId;
     private String categoryImg;
     private String categoryName;
 
     public Category() {
     }
 
-    public Category(int categoryId, String categoryImg, String categoryName) {
-        this.categoryId = categoryId;
+    public Category(String categoryImg, String categoryName) {
         this.categoryImg = categoryImg;
         this.categoryName = categoryName;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
