@@ -136,8 +136,8 @@ public class ProductAddActivity extends AppCompatActivity {
     DatabaseReference idCounterRef;
     FirebaseStorage storage;
     StorageReference storageRef;
-
     Uri imageUri;
+
     private final ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -153,7 +153,6 @@ public class ProductAddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         db = FirebaseDatabase.getInstance();
         productsRef = db.getReference("Product");
-        idCounterRef = db.getReference("productIdCounter");
         storage = FirebaseStorage.getInstance();
         storageRef = storage.getReference();
         binding = ActivityProductAddBinding.inflate(getLayoutInflater());
@@ -203,40 +202,24 @@ public class ProductAddActivity extends AppCompatActivity {
                         imageRef.getDownloadUrl().addOnSuccessListener(downloadUri -> {
                             String imageUrl = downloadUri.toString();
 
-                            // Lấy giá trị ID tối đa hiện tại từ Firebase
-                            idCounterRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot snapshot) {
-                                    int currentId = snapshot.exists() ? snapshot.getValue(Integer.class) : 0;
-                                    int newId = currentId + 1;
+                            String productId = productsRef.push().getKey();
+                            Product product = new Product( productName, imageUrl, pCalo, pCarb, pFat, pProtein, pMoisture);
 
-                                    // Tạo đối tượng Product mới với ID tự động tăng và URL hình ảnh
-                                    Product product = new Product(newId, productName, imageUrl, pCalo, pCarb, pFat, pProtein, pMoisture);
-
-                                    // Thêm sản phẩm vào Firebase
-                                    productsRef.push().setValue(product).addOnCompleteListener(task -> {
-                                        if (task.isSuccessful()) {
-                                            // Cập nhật giá trị ID tối đa
-                                            idCounterRef.setValue(newId);
-
-                                            Toast.makeText(ProductAddActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
-                                            binding.edtProductName.setText("");
-                                            binding.edtProductCalo.setText("");
-                                            binding.edtProductCarb.setText("");
-                                            binding.edtProductFat.setText("");
-                                            binding.edtProductProtein.setText("");
-                                            binding.edtProductMoisture.setText("");
-                                            binding.imgProduct.setImageResource(R.drawable.upload_file);
-                                            imageUri = null;
-                                            finish();
-                                        } else {
-                                            Toast.makeText(ProductAddActivity.this, "Lỗi khi thêm sản phẩm", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError error) {
+                            // Thêm sản phẩm vào Firebase
+                            productsRef.child(productId).setValue(product).addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(ProductAddActivity.this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                                    binding.edtProductName.setText("");
+                                    binding.edtProductCalo.setText("");
+                                    binding.edtProductCarb.setText("");
+                                    binding.edtProductFat.setText("");
+                                    binding.edtProductProtein.setText("");
+                                    binding.edtProductMoisture.setText("");
+                                    binding.imgProduct.setImageResource(R.drawable.upload_file);
+                                    imageUri = null;
+                                    finish();
+                                } else {
+                                    Toast.makeText(ProductAddActivity.this, "Lỗi khi thêm sản phẩm", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         });

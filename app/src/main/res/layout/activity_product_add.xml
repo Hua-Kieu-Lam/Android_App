@@ -25,7 +25,22 @@
                 android:text="Add product"
                 android:textAlignment="center"
                 android:textSize="50sp" />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:text="Chon danh muc sp"
+                android:textSize="20sp" />
+            <Spinner
+                android:id="@+id/spinnerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:textSize="24sp"
+                />
             <EditText
                 android:id="@+id/edtProductName"
 
