@@ -1,6 +1,7 @@
 package com.example.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.android_app.ProductUpdateActivity;
 import com.example.android_app.databinding.AdminProductItemBinding;
 import com.example.models.Product;
 import com.google.firebase.database.DatabaseReference;
@@ -45,23 +47,27 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
         Glide.with(context).load(productArrayList.get(position).getProductImg()).apply(requestOptions)
                 .into(holder.binding.imvProduct);
 
+        holder.binding.imvUpdate.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ProductUpdateActivity.class);
+            intent.putExtra("PRODUCT_ID", productArrayList.get(position).getFirebaseId());
+            context.startActivity(intent);
+        });
         holder.binding.imvDelete.setOnClickListener(new View.OnClickListener() {
             int position = holder.getAdapterPosition();
-
             @Override
             public void onClick(View view) {
                 String firebaseId = productArrayList.get(position).getFirebaseId();
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product").child(firebaseId);
-                Log.d("AdminProductAdapter", "Deleting product with Firebase ID: " + firebaseId);
 
                 ref.removeValue().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         productArrayList.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, productArrayList.size());
+                        Toast.makeText(context, "Xóa sản phẩm thanh cong", Toast.LENGTH_SHORT).show();
+
                     } else {
-                        // Xử lý nếu việc xóa thất bại
                         Toast.makeText(context, "Xóa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
                     }
                 });

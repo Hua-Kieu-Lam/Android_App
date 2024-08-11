@@ -1,6 +1,8 @@
 package com.example.android_app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -36,15 +38,19 @@ public class CategoryActivity extends AppCompatActivity {
         db=FirebaseDatabase.getInstance();
         binding= ActivityCategoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
         addEvents();
     }
 
     private void addEvents() {
+        binding.btnAddCategory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CategoryActivity.this, CategoryAddActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
