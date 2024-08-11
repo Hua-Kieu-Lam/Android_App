@@ -3,7 +3,6 @@ package com.example.models;
 import java.io.Serializable;
 
 public class Product implements Serializable {
-    private int productId;
     private String productName;
     private String productImg;
     private double productCalo;
@@ -25,8 +24,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(int productId, String productName, String productImg, double productCalo, double productCarb, double productFat, double productProtein, double productMoisture) {
-        this.productId = productId;
+    public Product(String productName, String productImg, double productCalo, double productCarb, double productFat, double productProtein, double productMoisture) {
         this.productName = productName;
         this.productImg = productImg;
         this.productCalo = productCalo;
@@ -34,14 +32,6 @@ public class Product implements Serializable {
         this.productFat = productFat;
         this.productProtein = productProtein;
         this.productMoisture = productMoisture;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public String getProductName() {

@@ -53,6 +53,7 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
                 String firebaseId = productArrayList.get(position).getFirebaseId();
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product").child(firebaseId);
+                Log.d("AdminProductAdapter", "Deleting product with Firebase ID: " + firebaseId);
 
                 ref.removeValue().addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
