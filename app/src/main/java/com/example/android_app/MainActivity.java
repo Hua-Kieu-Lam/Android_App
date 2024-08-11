@@ -90,17 +90,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     for (DataSnapshot i : snapshot.getChildren()) {
-                        Product product = snapshot.getValue(Product.class);
+                        Product product = i.getValue(Product.class);
                         if (product != null) {
-                            product.setFirebaseId(snapshot.getKey()); // Lưu trữ ID Firebase vào product
-                            productArrayList.add(product); // Thêm sản phẩm vào danh sách
+                            product.setFirebaseId(snapshot.getKey());
+                            productArrayList.add(product);
                         }
                     }
                     if(!productArrayList.isEmpty()){
                         binding.rvProducts.setLayoutManager(new GridLayoutManager(MainActivity.this,2));
                         binding.rvProducts.setAdapter(new ProductAdapter(productArrayList));
                     }
-
                 }
             }
 
