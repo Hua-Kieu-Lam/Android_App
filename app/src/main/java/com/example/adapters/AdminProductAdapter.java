@@ -46,6 +46,7 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
                 .into(holder.binding.imvProduct);
 
         holder.binding.imvDelete.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
                 String firebaseId = productArrayList.get(position).getFirebaseId();

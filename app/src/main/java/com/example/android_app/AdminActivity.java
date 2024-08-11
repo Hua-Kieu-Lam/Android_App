@@ -101,6 +101,10 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent= new Intent(AdminActivity.this, AdminActivity.class);
             startActivity(intent);
         }
+        if(item.getItemId()==R.id.mnCategory){
+            Intent intent= new Intent(AdminActivity.this, CategoryActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }
