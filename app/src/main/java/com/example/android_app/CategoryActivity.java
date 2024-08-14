@@ -43,6 +43,12 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         binding.btnAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +83,7 @@ public class CategoryActivity extends AppCompatActivity {
                     }
                     if(!categoryArrayList.isEmpty()){
                         binding.rvCategory.setLayoutManager(new LinearLayoutManager(CategoryActivity.this));
-                        adminCategoryAdapter = new AdminCategoryAdapter(categoryArrayList); // Khởi tạo adapter
+                        adminCategoryAdapter = new AdminCategoryAdapter(categoryArrayList);
                         binding.rvCategory.setAdapter(adminCategoryAdapter);
                         adminCategoryAdapter.notifyDataSetChanged();
                     }

@@ -1,6 +1,7 @@
 package com.example.android_app;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,16 @@ public class ProductDetailActivity extends AppCompatActivity {
             return insets;
         });
         loadData();
+        addEvents();
+    }
+
+    private void addEvents() {
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void loadData() {
