@@ -3,6 +3,7 @@ package com.example.android_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -52,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
     private void addEvents() {
         binding.btnChatAI.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, ChatAIActivity.class));
+        });
+        binding.btnBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, BmiActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

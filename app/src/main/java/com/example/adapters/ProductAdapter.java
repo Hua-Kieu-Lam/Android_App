@@ -36,7 +36,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductViewHolder holder, int position) {
         holder.binding.txtProductName.setText(productArrayList.get(position).getProductName());
-        holder.binding.txtProductCalo.setText(String.valueOf(productArrayList.get(position).getProductCalo()));
+        holder.binding.txtProductCalo.setText(productArrayList.get(position).getProductCalo() + " Calo");
 
         RequestOptions requestOptions = new RequestOptions();
         requestOptions=requestOptions.transform(new CenterCrop());
@@ -45,6 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 .into(holder.binding.imgProduct);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            final int position = holder.getAdapterPosition();
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(context, ProductDetailActivity.class);
