@@ -1,9 +1,14 @@
 package com.example.android_app;
 
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
@@ -36,7 +41,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ChatAIActivity extends AppCompatActivity {
@@ -50,6 +57,14 @@ public class ChatAIActivity extends AppCompatActivity {
     private String url = "https://yescale.one/v1/chat/completions";
     private JsonObjectRequest currentRequest;
     private RequestQueue requestQueue;
+    private ImageButton opencamButton;
+
+    private SpeechRecognizer speechRecognizer;
+    private Intent speechRecognizerIntent;
+    private ImageButton voiceInputButton;
+    private final int REQUEST_RECORD_AUDIO_PERMISSION_CODE = 1;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1; // Add this line
+
 
     // Variable to store loaded file content
     private String trainingData = "";
@@ -67,6 +82,7 @@ public class ChatAIActivity extends AppCompatActivity {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                         addImageToChat(bitmap, true);
                         analyzeImageWithHuggingFace(bitmap); // Analyze the image using Hugging Face API
+                        //analyzeFaceDetailsWithHuggingFace(bitmap);
                     } catch (Exception e) {
                         Log.e("IMAGE_ERROR", "Error converting image: " + e.getMessage());
                         Toast.makeText(this, "Error converting image", Toast.LENGTH_SHORT).show();
@@ -82,6 +98,7 @@ public class ChatAIActivity extends AppCompatActivity {
             });
 
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatai);
@@ -92,6 +109,8 @@ public class ChatAIActivity extends AppCompatActivity {
         sendButton = findViewById(R.id.idBtnSend);
         stopButton = findViewById(R.id.idBtnStop);
         attachButton = findViewById(R.id.idBtnAttachFile);
+        voiceInputButton = findViewById(R.id.idBtnVoiceInput);
+        opencamButton = findViewById(R.id.idBtnCamera);
 
         requestQueue = Volley.newRequestQueue(getApplicationContext());
 
@@ -104,6 +123,12 @@ public class ChatAIActivity extends AppCompatActivity {
                 return true;
             }
             return false;
+        });
+
+        opencamButton.setOnClickListener(v -> {
+            // Khởi tạo Intent để mở CameraActivity
+            Intent intent = new Intent(ChatAIActivity.this, CameraActivity.class);
+            startActivity(intent);
         });
 
         sendButton.setOnClickListener(v -> sendMessage());
@@ -122,7 +147,42 @@ public class ChatAIActivity extends AppCompatActivity {
                     })
                     .show();
         });
+
+        voiceInputButton.setOnClickListener(v -> startVoiceInput());
+
+
     }
+
+
+    private void startVoiceInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Nói điều gì đó...");
+
+        try {
+            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "Thiết bị của bạn không hỗ trợ nhập liệu bằng giọng nói", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT && resultCode == RESULT_OK && data != null) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (result != null && !result.isEmpty()) {
+                queryEdt.setText(result.get(0));
+                sendMessage(); // Automatically send the message after setting the text
+            }
+        }
+    }
+
+
+
 
     private void sendMessage() {
         String userQuery = queryEdt.getText().toString();
@@ -197,7 +257,7 @@ public class ChatAIActivity extends AppCompatActivity {
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
-                headers.put("Authorization", "Bearer sk-VGPPAu3hdqdEtnDH72Ac71A0E52d43C8A7B35b551e09C5E3");
+                headers.put("Authorization", "Bearer sk-MHWxdWXl8J4MOcrE91630c16292746CaA356Aa376667AdC1");
                 return headers;
             }
         };
@@ -289,10 +349,20 @@ public class ChatAIActivity extends AppCompatActivity {
                             JSONArray jsonArray = new JSONArray(response);
                             if (jsonArray.length() > 0) {
                                 JSONObject firstResult = jsonArray.getJSONObject(0);
-                                String label = firstResult.getString("label");
-
-                                // Send the label to ChatGPT for more information
-                                getResponse("thông tin về  " + label + "?");
+                                // Check for face detection results first
+                                if (firstResult.has("face_detected")) {
+                                    boolean faceDetected = firstResult.getBoolean("face_detected");
+                                    addMessageToChat(faceDetected ? "Face detected in the image." : "No face detected in the image.", false);
+                                } else if (firstResult.has("label")) {
+                                    String label = firstResult.getString("label");
+                                    // Send the label to ChatGPT for more information
+                                    getResponse("Thông tin về  " + label + "?");
+                                } else if (firstResult.has("description")) {
+                                    String description = firstResult.getString("description");
+                                    addMessageToChat("Description: " + description, false);
+                                } else {
+                                    addMessageToChat("Unable to analyze image. No recognizable data found.", false);
+                                }
                             } else {
                                 addMessageToChat("Không thể nhận diện hình ảnh này.", false);
                             }
@@ -341,7 +411,7 @@ public class ChatAIActivity extends AppCompatActivity {
 
                 @Override
                 public void retry(VolleyError error) {
-                    // Do nothing
+                    // Optional: Implement retry logic if needed
                 }
             });
 
@@ -352,5 +422,108 @@ public class ChatAIActivity extends AppCompatActivity {
             Toast.makeText(this, "Error processing image", Toast.LENGTH_SHORT).show();
         }
     }
+    private void analyzeFaceDetailsWithHuggingFace(Bitmap bitmap) {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] imageBytes = byteArrayOutputStream.toByteArray();
+            String encodedImage = Base64.encodeToString(imageBytes, Base64.NO_WRAP);
+
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("inputs", encodedImage);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, imageAnalysisApiUrl,
+                    response -> {
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            if (jsonArray.length() > 0) {
+                                JSONObject firstResult = jsonArray.getJSONObject(0);
+                                // Check if the response includes face detection results
+                                if (firstResult.has("face_detected")) {
+                                    boolean faceDetected = firstResult.getBoolean("face_detected");
+                                    if (faceDetected) {
+                                        // Analyze facial details
+                                        if (firstResult.has("facial_details")) {
+                                            JSONObject facialDetails = firstResult.getJSONObject("facial_details");
+                                            String emotions = facialDetails.getString("emotions");
+                                            String landmarks = facialDetails.getString("landmarks");
+                                            double attractivenessRating = facialDetails.getDouble("attractiveness_rating");
+
+                                            // Provide detailed feedback
+                                            String feedback = "Facial Details:\n" +
+                                                    "Emotions: " + emotions + "\n" +
+                                                    "Landmarks: " + landmarks + "\n" +
+                                                    "Attractiveness Rating: " + attractivenessRating + "/10";
+
+                                            addMessageToChat(feedback, false);
+                                        } else {
+                                            addMessageToChat("Face detected but no additional details available.", false);
+                                        }
+                                    } else {
+                                        addMessageToChat("No face detected in the image.", false);
+                                    }
+                                } else {
+                                    addMessageToChat("Face detection not supported in the response.", false);
+                                }
+                            } else {
+                                addMessageToChat("Unable to detect or analyze face in the image.", false);
+                            }
+                        } catch (Exception e) {
+                            Log.e("FACE_ANALYSIS_ERROR", "Error parsing response: " + e.getMessage());
+                            Toast.makeText(ChatAIActivity.this, "Error parsing face analysis response", Toast.LENGTH_SHORT).show();
+                        }
+                    },
+                    error -> {
+                        if (error.networkResponse != null) {
+                            int statusCode = error.networkResponse.statusCode;
+                            if (statusCode == 503) {
+                                Toast.makeText(ChatAIActivity.this, "Dịch vụ tạm thời không khả dụng. Vui lòng thử lại sau.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(ChatAIActivity.this, "Lỗi mạng: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(ChatAIActivity.this, "Lỗi mạng: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                        Log.e("FACE_ANALYSIS_ERROR", "Error: " + error.getMessage());
+                    }) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + huggingFaceApiKey);
+                    headers.put("Content-Type", "application/json");
+                    return headers;
+                }
+
+                @Override
+                public byte[] getBody() {
+                    return jsonBody.toString().getBytes(StandardCharsets.UTF_8);
+                }
+            };
+
+            stringRequest.setRetryPolicy(new RetryPolicy() {
+                @Override
+                public int getCurrentTimeout() {
+                    return 50000;
+                }
+
+                @Override
+                public int getCurrentRetryCount() {
+                    return 50000;
+                }
+
+                @Override
+                public void retry(VolleyError error) {
+                    // Optional: Implement retry logic if needed
+                }
+            });
+
+            requestQueue.add(stringRequest);
+
+        } catch (Exception e) {
+            Log.e("FACE_ANALYSIS_ERROR", "Error processing image: " + e.getMessage());
+            Toast.makeText(this, "Error processing image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }
