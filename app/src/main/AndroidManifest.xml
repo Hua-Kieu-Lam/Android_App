@@ -12,11 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_App"
         tools:targetApi="31">
+
         <activity
-            android:name=".ShowMenuProductActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".ManageMenuProductActivity"
+            android:name=".ShowMenuProductActivity"
             android:exported="false" />
         <activity
             android:name=".BmiActivity"
@@ -47,6 +48,9 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
