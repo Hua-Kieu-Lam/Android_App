@@ -1,4 +1,3 @@
-
 package com.example.android_app;
 
 import android.content.Intent;
@@ -140,7 +139,7 @@ public class BmiActivity extends AppCompatActivity {
                     productList.add(product);
                 }
                 ArrayList<Product> recommendedProducts = getRecommendedProducts(productList, targetCalories);
-                goToShowMenuProductActivity(new ArrayList<>(recommendedProducts));
+                updateMenuInFirebase(recommendedProducts);
             }
 
             @Override
@@ -170,9 +169,31 @@ public class BmiActivity extends AppCompatActivity {
         return selectedProducts;
     }
 
-    private void goToShowMenuProductActivity(ArrayList<Product> products) {
-        Intent intent = new Intent(BmiActivity.this, ShowMenuProductActivity.class);
-        intent.putExtra("recommendedProducts", products);
-        startActivity(intent);
+    private void updateMenuInFirebase(ArrayList<Product> recommendedProducts) {
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference userMenuRef = userRef.child(userId).child("Menu");
+
+            userMenuRef.removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    for (Product product : recommendedProducts) {
+                        Map<String, Object> menuData = new HashMap<>();
+                        menuData.put("productName", product.getProductName());
+                        menuData.put("productImg", product.getProductImg());
+                        menuData.put("productCalo", product.getProductCalo());
+                        menuData.put("productCarb", product.getProductCarb());
+                        menuData.put("productFat", product.getProductFat());
+                        menuData.put("productProtein", product.getProductProtein());
+                        menuData.put("productMoisture", product.getProductMoisture());
+
+                        userMenuRef.push().setValue(menuData);
+                    }
+                    Toast.makeText(BmiActivity.this, "Cập nhật menu thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(BmiActivity.this, "Cập nhật menu thất bại", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
