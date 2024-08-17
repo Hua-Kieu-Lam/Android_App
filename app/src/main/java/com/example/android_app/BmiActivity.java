@@ -1,3 +1,4 @@
+
 package com.example.android_app;
 
 import android.content.Intent;
@@ -112,13 +113,20 @@ public class BmiActivity extends AppCompatActivity {
     private void saveBMIToFirebase(double bmi, double dailyCalories) {
         FirebaseUser user = auth.getCurrentUser();
         if (user != null) {
-            String userId = user.getUid(); // Lấy UID của người dùng hiện tại
+            String userId = user.getUid();
             DatabaseReference userBmiRef = userRef.child(userId).child("BMI");
 
             Map<String, Object> bmiData = new HashMap<>();
             bmiData.put("bmi", bmi);
             bmiData.put("dailyCalories", dailyCalories);
 
+            userBmiRef.push().setValue(bmiData).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(BmiActivity.this, "Lưu BMI thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(BmiActivity.this, "Lưu BMI thất bại", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
