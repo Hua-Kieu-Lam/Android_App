@@ -20,7 +20,11 @@
             android:id="@+id/idLLChatContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:divider="?android:attr/dividerVertical"
+            android:showDividers="middle" />
 
     </ScrollView>
 
@@ -43,12 +47,27 @@
             android:layout_centerVertical="true"
             android:padding="12dp" />
 
+        <!-- Camera button -->
+        <ImageButton
+            android:id="@+id/idBtnCamera"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_camera"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_toEndOf="@id/idBtnAttachFile"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:padding="12dp" />
+
+        <!-- Voice input button -->
+
+
         <!-- Query input field -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/idTextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/idBtnAttachFile"
+            android:layout_toEndOf="@id/idBtnVoiceInput"
             android:layout_toStartOf="@id/idBtnSend"
             android:layout_centerVertical="true"
             android:layout_marginStart="8dp"
@@ -62,8 +81,19 @@
                 android:imeOptions="actionSend"
                 android:inputType="text"
                 android:textColor="@android:color/black" />
-        </com.google.android.material.textfield.TextInputLayout>
 
+        </com.google.android.material.textfield.TextInputLayout>
+        <ImageButton
+            android:id="@+id/idBtnVoiceInput"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_mic"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Voice Input"
+            android:layout_toEndOf="@id/idBtnCamera"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:padding="12dp" />
         <!-- Send button -->
         <ImageButton
             android:id="@+id/idBtnSend"
@@ -110,39 +140,5 @@
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
-
-    <!--    &lt;!&ndash; Drawing View &ndash;&gt;-->
-    <!--    <com.example.full_ai_chat.DrawingView-->
-    <!--        android:id="@+id/drawingView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:layout_above="@id/clearButton"-->
-    <!--        android:layout_alignParentTop="true" />-->
-
-    <!--    &lt;!&ndash; Clear button &ndash;&gt;-->
-    <!--    <Button-->
-    <!--        android:id="@+id/clearButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:text="Clear" />-->
-
-    <!--    &lt;!&ndash; Save button &ndash;&gt;-->
-    <!--    <Button-->
-    <!--        android:id="@+id/saveButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_toEndOf="@id/clearButton"-->
-    <!--        android:text="Save" />-->
-
-    <!--    &lt;!&ndash; Send Drawing button &ndash;&gt;-->
-    <!--    <Button-->
-    <!--        android:id="@+id/sendButtonDrawing"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_toEndOf="@id/saveButton"-->
-    <!--        android:text="Send Drawing" />-->
 
 </RelativeLayout>
