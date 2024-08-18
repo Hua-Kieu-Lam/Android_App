@@ -40,16 +40,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Update product"
-                android:textAlignment="center"
-                android:textSize="50sp" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Chon danh muc sp"
-                android:textSize="20sp" />
+                android:text="Chọn danh mục sản phẩm"
+                 />
             <Spinner
                 android:id="@+id/spinnerCategory"
                 android:layout_width="match_parent"
@@ -57,60 +49,81 @@
                 android:layout_marginTop="20dp"
                 android:textSize="24sp"
                 />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Nhập tên sản phẩm"
+                />
             <EditText
                 android:id="@+id/edtProductName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Nhap ten san pham"
+                android:hint="Nhập tên sản phẩm"
                 android:textSize="24sp" />
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Nhập calo"
+                 />
             <EditText
                 android:id="@+id/edtProductCalo"
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập calo"
+                android:inputType="numberDecimal"
+                android:textSize="24sp" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Nhap calo"
-                android:inputType="numberDecimal"
-                android:textSize="24sp" />
-
+                android:text="Nhập lượng tinh bột"
+                />
             <EditText
                 android:id="@+id/edtProductCarb"
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập lượng tinh bột"
+                android:inputType="numberDecimal"
+                android:textSize="24sp" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Nhap ham luong tinh bot"
-                android:inputType="numberDecimal"
-                android:textSize="24sp" />
-
+                android:text="Nhập lượng chất béo"
+                />
             <EditText
                 android:id="@+id/edtProductFat"
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập lượng chất béo"
+                android:inputType="numberDecimal"
+                android:textSize="24sp" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Nhap ham luong chat beo"
-                android:inputType="numberDecimal"
-                android:textSize="24sp" />
-
+                android:text="Nhập lượng đạm"
+                 />
             <EditText
                 android:id="@+id/edtProductProtein"
-
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập lượng đạm"
+                android:inputType="numberDecimal"
+                android:textSize="24sp" />
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:hint="Nhap ham luong dam"
-                android:inputType="numberDecimal"
-                android:textSize="24sp" />
-
+                android:text="Nhập lượng nước"
+                />
             <EditText
                 android:id="@+id/edtProductMoisture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Nhap ham luong nuoc"
+                android:hint="Nhập lượng nước"
                 android:inputType="numberDecimal"
                 android:textSize="24sp" />
 
@@ -126,17 +139,15 @@
                 android:background="@drawable/border_yellow_bg"
                 android:src="@drawable/upload_file"
                 android:scaleType="fitCenter" />
-
-
             <Button
                 android:id="@+id/btnChooseImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/light_green"
-                android:text="Chon hinh anh"
-                android:textSize="24sp"
+                android:backgroundTint="@color/light_orange"
+                android:text="Chọn hình ảnh"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
@@ -147,8 +158,8 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/light_green"
-                android:text="Cap nhat san pham"
-                android:textSize="24sp"
+                android:text="Cập nhật sản phẩm"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

@@ -45,15 +45,19 @@
             android:exported="false" />
         <activity
             android:name=".CategoryUpdateActivity"
+            android:label="Cập nhật danh mục"
             android:exported="false" />
         <activity
             android:name=".ProductUpdateActivity"
+            android:label="Cập nhật sản phẩm"
             android:exported="false" />
         <activity
             android:name=".CategoryAddActivity"
+            android:label="Thêm danh mục"
             android:exported="false" />
         <activity
             android:name=".CategoryActivity"
+            android:label="Quản lý danh mục"
             android:exported="false" />
         <activity
             android:name=".ProductDetailActivity"
@@ -61,9 +65,11 @@
             android:exported="false" />
         <activity
             android:name=".ProductAddActivity"
+            android:label="Thêm sản phẩm"
             android:exported="false" />
         <activity
             android:name=".AdminActivity"
+            android:label="Quản lý sản phẩm"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

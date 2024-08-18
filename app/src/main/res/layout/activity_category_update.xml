@@ -40,18 +40,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="Update category"
-                android:textAlignment="center"
-                android:textSize="50sp" />
-
+                android:text="Nhập tên danh mục"
+                />
             <EditText
                 android:id="@+id/edtCategoryName"
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Nhap ten san pham"
+                android:hint="Nhập tên danh mục"
                 android:textSize="24sp" />
 
             <ImageView
@@ -75,7 +70,7 @@
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/light_orange"
                 android:text="Chọn hình ảnh"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <Button
@@ -87,7 +82,7 @@
                 android:layout_marginBottom="30dp"
                 android:backgroundTint="@color/light_green"
                 android:text="Cập nhật danh mục"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

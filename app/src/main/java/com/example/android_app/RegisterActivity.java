@@ -78,9 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
                 .set(user)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(RegisterActivity.this, "User role saved successfully.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Lưu thông tin người dùng thành công.", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(RegisterActivity.this, "Failed to save user role.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Lưu thông tin người dùng thất bại.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -95,11 +95,11 @@ public class RegisterActivity extends AppCompatActivity {
                                 // Save the user role before signing out
                                 saveUserRole(user.getUid(), user.getEmail());
 
-                                Toast.makeText(RegisterActivity.this, "Verification email sent. Please check your email.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Email xác minh đã được gửi. Vui lòng kiểm tra email của bạn.", Toast.LENGTH_SHORT).show();
 
                                 auth.signOut();
                             } else {
-                                Toast.makeText(RegisterActivity.this, "Failed to send verification email.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Không gửi được email xác minh.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

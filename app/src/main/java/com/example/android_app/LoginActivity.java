@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = binding.edtEmail.getText().toString().trim();
         String password = binding.edtPassword.getText().toString().trim();
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(LoginActivity.this, "Please enter email and password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Hãy nhập email và mật khẩu", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -80,10 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (user != null) {
                             checkIfAdminAndNavigate(user);
                         } else {
-                            Toast.makeText(LoginActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Không tìm thấy người dùng", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Toast.makeText(LoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 });
         }
