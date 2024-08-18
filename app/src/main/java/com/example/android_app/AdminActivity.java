@@ -96,10 +96,6 @@ public class AdminActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId()==R.id.mnProduct){
-            Intent intent= new Intent(AdminActivity.this, AdminActivity.class);
-            startActivity(intent);
-        }
         if(item.getItemId()==R.id.mnCategory){
             Intent intent= new Intent(AdminActivity.this, CategoryActivity.class);
             startActivity(intent);

@@ -20,6 +20,8 @@ import com.example.adapters.ProductAdapter;
 import com.example.android_app.databinding.ActivityMainBinding;
 import com.example.models.Category;
 import com.example.models.Product;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +34,12 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     FirebaseDatabase db;
-
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db=FirebaseDatabase.getInstance();
+        auth=FirebaseAuth.getInstance();
         binding=ActivityMainBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
@@ -45,11 +48,23 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        loadData();
         addEvents();
+        getUserAccount();
     }
 
+    private void getUserAccount() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser != null) {
+            String email = currentUser.getEmail();
+            binding.txtAccount.setText(email);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadData();
+    }
     private void addEvents() {
         binding.btnChatAI.setOnClickListener(v -> {
             startActivity(new Intent(MainActivity.this, ChatAIActivity.class));
@@ -65,6 +80,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, ShowMenuProductActivity.class);
+                startActivity(intent);
+            }
+        });
+        binding.btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intent);
             }
         });
