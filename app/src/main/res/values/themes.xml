@@ -2,8 +2,26 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.Android_App" parent="Theme.Material3.Light">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+<!--         <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+<!--        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>-->
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
+        <!-- Secondary branding color -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+<!--        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>-->
+        <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/colorBackground</item>
+        <!-- Surface color -->
+<!--        <item name="colorSurface">@color/colorSurface</item>-->
+        <!-- Error color -->
+<!--        <item name="colorError">@color/colorError</item>-->
+<!--        <item name="colorOnError">@color/colorOnError</item>-->
+        <!-- Text colors -->
+<!--        <item name="colorOnBackground">@color/colorOnBackground</item>-->
+        <item name="colorOnSurface">@color/colorOnSurface</item>
     </style>
+
 
     <style name="Theme.Android_App" parent="Base.Theme.Android_App" />
 </resources>

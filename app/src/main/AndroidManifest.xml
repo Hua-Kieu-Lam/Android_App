@@ -29,15 +29,19 @@
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ShowMenuProductActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".BmiActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ChatAIActivity"
+            android:label="Chat AI"
             android:exported="false" />
         <activity
             android:name=".CategoryUpdateActivity"
@@ -53,6 +57,7 @@
             android:exported="false" />
         <activity
             android:name=".ProductDetailActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".ProductAddActivity"
@@ -62,9 +67,11 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
+            android:theme="@style/Theme.Material3.Light.NoActionBar"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
