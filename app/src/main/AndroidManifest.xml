@@ -24,9 +24,12 @@
         android:theme="@style/Theme.Android_App"
         tools:targetApi="31">
         <activity
-            android:name=".AccountActivity"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"
+            android:name=".ManageUserActivity"
             android:exported="false" />
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Light.NoActionBar" />
         <activity
             android:name=".CameraActivity"
             android:exported="false" />

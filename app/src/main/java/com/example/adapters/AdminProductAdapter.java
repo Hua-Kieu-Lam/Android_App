@@ -1,11 +1,13 @@
 package com.example.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,8 +17,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android_app.ProductUpdateActivity;
+import com.example.android_app.R;
 import com.example.android_app.databinding.AdminProductItemBinding;
 import com.example.models.Product;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -56,21 +61,36 @@ public class AdminProductAdapter extends RecyclerView.Adapter<AdminProductAdapte
             int position = holder.getAdapterPosition();
             @Override
             public void onClick(View view) {
-                String firebaseId = productArrayList.get(position).getFirebaseId();
+                Dialog dialog=new Dialog(context);
+                dialog.setContentView(R.layout.delete_dialog);
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Product").child(firebaseId);
-
-                ref.removeValue().addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        productArrayList.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, productArrayList.size());
-                        Toast.makeText(context, "Xóa sản phẩm thanh cong", Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Toast.makeText(context, "Xóa sản phẩm thất bại", Toast.LENGTH_SHORT).show();
+                ImageView imvOk=dialog.findViewById(R.id.imvOK);
+                ImageView imvCancel=dialog.findViewById(R.id.imvCancel);
+                imvOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String productId=productArrayList.get(position).getFirebaseId();
+                        DatabaseReference ref=FirebaseDatabase.getInstance().getReference("Product").child(productId);
+                        ref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                productArrayList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position,productArrayList.size());
+                                Toast.makeText(context, "Xóa thành công", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.dismiss();
                     }
                 });
+                imvCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
             }
         });
     }
