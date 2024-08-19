@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Năng lượng (CALO)"
+                        android:text="Năng lượng (Calo/100g)"
                         android:textColor="@color/light_green"
                         android:textSize="20sp"
                         android:textStyle="bold" />

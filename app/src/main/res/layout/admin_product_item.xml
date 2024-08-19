@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="Product Name"
             android:textColor="@color/dark_green"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView

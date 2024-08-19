@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Nhập calo"
+                android:text="Nhập calo (100g)"
                  />
             <EditText
                 android:id="@+id/edtProductCalo"
