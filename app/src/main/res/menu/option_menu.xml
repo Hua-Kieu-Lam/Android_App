@@ -4,7 +4,11 @@
         <item
             android:id="@+id/mnCategory"
             android:title="Quản lý danh mục"/>
+<!--        <item-->
+<!--            android:id="@+id/mnAccount"-->
+<!--            android:title="Tài khoản người dùng"/>-->
+
         <item
-            android:id="@+id/mnAccount"
-            android:title="Tài khoản người dùng"/>
+            android:id="@+id/mnLogout"
+            android:title="Đăng xuất"/>
 </menu>

@@ -68,8 +68,8 @@ public class AdminActivity extends AppCompatActivity {
                     for(DataSnapshot i:snapshot.getChildren()){
                         Product product = i.getValue(Product.class);
                         if (product != null) {
-                            product.setFirebaseId(i.getKey()); // Lưu trữ ID Firebase vào product
-                            productArrayList.add(product); // Thêm sản phẩm vào danh sách
+                            product.setFirebaseId(i.getKey());
+                            productArrayList.add(product);
                         }
                     }
                     if(!productArrayList.isEmpty()){
@@ -99,6 +99,12 @@ public class AdminActivity extends AppCompatActivity {
         if(item.getItemId()==R.id.mnCategory){
             Intent intent= new Intent(AdminActivity.this, CategoryActivity.class);
             startActivity(intent);
+        }
+        if(item.getItemId()==R.id.mnLogout){
+            Intent intent = new Intent(AdminActivity.this, LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finishAffinity();
         }
         return super.onOptionsItemSelected(item);
     }
